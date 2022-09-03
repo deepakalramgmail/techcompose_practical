@@ -33,10 +33,11 @@ export class PersonalComponent implements OnInit {
       console.error("form invalid");
     }
     else {
-      this.api._addUserPersonalDetails({}).subscribe(
+      this.api._addUserPersonalDetails(this.personalDetails.value).subscribe(
         (res: any) => {
           if (res.status === 200) {
             this.personalDetails.reset();
+            alert("data added success fully")
           }
           else { console.log("res status failed", res.message) }
         },

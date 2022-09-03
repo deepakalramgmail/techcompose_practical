@@ -32,8 +32,8 @@ module.exports.add_personal = async (req, res) => {
                 name: body.name,
                 email: body.email,
                 password: sha256(body.password).toString(),
-                dob: body.dob,
-                contact_no: body.contact_no,
+                dob: new Date(body.dob),
+                contact_no: body.contactno,
                 address: body.address
             });
         if (adduser > 0) {

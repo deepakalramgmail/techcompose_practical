@@ -12,11 +12,15 @@ export class BusinessComponent implements OnInit {
 
   businessDetails: any = {};
 
-  constructor(private _fb: FormBuilder, private api: ApiService, private router:Router) { }
+  constructor(private _fb: FormBuilder, private api: ApiService, private router: Router) { }
 
   ngOnInit(): void {
-    if(!localStorage.getItem('user_id')) { alert("you need to first fill perosnal details then business details"); this.router.navigate(['/user/add/personal']) }
+    if (!localStorage.getItem('user_id')) { alert("you need to first fill perosnal details then business details"); this.router.navigate(['/user/add/personal']) }
     this.formInit()
+  }
+
+  ngOnDestroy(): void {
+    localStorage.removeItem('user_id');
   }
 
   formInit() {
@@ -49,15 +53,16 @@ export class BusinessComponent implements OnInit {
     }
     else {
       const req = {
-        name:this.businessDetails.value.business_name,
-        branches:JSON.stringify(this.businessDetails.value.branches),
-        user_id:localStorage.getItem('user_id'),
+        name: this.businessDetails.value.business_name,
+        branches: JSON.stringify(this.businessDetails.value.branches),
+        user_id: localStorage.getItem('user_id'),
       }
       this.api._addUserBusinessDetails(req).subscribe(
         (res: any) => {
           if (res.status === 200) {
             this.businessDetails.reset();
             this.branches.clear();
+            this.router.navigate(['/user'])
           }
           else {
             console.error("res status failed", res);
