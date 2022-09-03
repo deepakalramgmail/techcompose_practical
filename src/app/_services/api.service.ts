@@ -13,4 +13,8 @@ export class ApiService {
   _getUserList(req: any) {
     return this.http.post(`${this.apiUrl}/users`, req);
   }
+
+  _addUserPersonalDetails(req: any) {
+    return this.http.post(`${this.apiUrl}/user/add/personal`, req);
+  }
 }
