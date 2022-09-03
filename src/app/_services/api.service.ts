@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class ApiService {
 
-  public apiUrl: string = '';
+  public apiUrl: string = 'http://localhost:3005/api/v1';
 
   constructor(private http: HttpClient) { }
 
@@ -16,5 +16,9 @@ export class ApiService {
 
   _addUserPersonalDetails(req: any) {
     return this.http.post(`${this.apiUrl}/user/add/personal`, req);
+  }
+
+  _addUserBusinessDetails(req: any) {
+    return this.http.post(`${this.apiUrl}/user/add/business`, req);
   }
 }
