@@ -36,6 +36,8 @@ export class PersonalComponent implements OnInit {
       this.api._addUserPersonalDetails(this.personalDetails.value).subscribe(
         (res: any) => {
           if (res.status === 200) {
+            console.log(res.data)
+            localStorage.setItem('user_id', res.data.id);
             this.personalDetails.reset();
             alert("data added success fully")
           }

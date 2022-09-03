@@ -28,7 +28,7 @@
                             <td>{{user.dob}}</td>
                             <td>{{user.contactno}}</td>
                             <td>{{user.business_name}}</td>
-                            <td> <span>Edit</span> | <span>Delete</span> </td>
+                            <td> <span>Edit</span> | <span (click)="deleteRecord(user)">Delete</span> </td>
                         </tr>
                     </ng-container>
                 </ng-container>

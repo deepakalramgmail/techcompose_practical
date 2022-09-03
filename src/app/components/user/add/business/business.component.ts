@@ -19,10 +19,6 @@ export class BusinessComponent implements OnInit {
     this.formInit()
   }
 
-  ngOnDestroy(): void {
-    localStorage.removeItem('user_id');
-  }
-
   formInit() {
     this.businessDetails = this._fb.group({
       business_name: ['', [Validators.required]],
@@ -63,6 +59,7 @@ export class BusinessComponent implements OnInit {
             this.businessDetails.reset();
             this.branches.clear();
             this.router.navigate(['/user'])
+            localStorage.removeItem('user_id');
           }
           else {
             console.error("res status failed", res);

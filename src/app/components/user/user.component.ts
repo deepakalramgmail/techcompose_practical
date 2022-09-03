@@ -12,6 +12,7 @@ export class UserComponent implements OnInit {
   constructor(private api: ApiService) { }
 
   ngOnInit(): void {
+    this.getUserList();
   }
 
   getUserList() {
@@ -27,5 +28,18 @@ export class UserComponent implements OnInit {
       (err) => {
         console.error(err.message);
       })
+  }
+
+  deleteRecord(user: any) {
+    if (confirm("Are you sure want to delete")) {
+      this.api._deleteRecord({ id: user.user_id }).subscribe(
+        (res: any) => {
+          if (res.status === 200) { this.getUserList(); alert("User deleted successfully") }
+          else { console.error("res status not success", res) }
+        }, (err) => { console.error(err.message) })
+    }
+    else {
+
+    }
   }
 }

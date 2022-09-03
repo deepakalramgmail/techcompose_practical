@@ -6,7 +6,7 @@ module.exports.list = async (req, res) => {
         const { body } = req;
         const offset = (body.page - 1) * body.limit;
         const userList = await knex('users as u')
-            .select('u.name', 'u.email', 'u.dob', 'u.contact_no as contactno', 'b.name as business_name')
+            .select('u.id as user_id','u.name', 'u.email', 'u.dob', 'u.contact_no as contactno', 'b.name as business_name')
             .leftJoin('business as b', 'b.user_id', 'u.id')
             .limit(body.limit)
             .offset(offset)
@@ -74,7 +74,7 @@ module.exports.single_user = async (req, res) => {
     try {
         const { id } = req.params;
         const user = await knex('users as u')
-            .select('u.name', 'u.email', 'u.dob', 'u.contact_no', 'b.name as business_name', 'b.branches')
+            .select('u.id as user_id', 'u.name', 'u.email', 'u.dob', 'u.contact_no', 'b.name as business_name', 'b.branches')
             .leftJoin('business as b', 'b.user_id', 'u.id')
             .where({'u.id': id})
 
@@ -95,6 +95,7 @@ module.exports.deleteUser = async (req, res) => {
         const { id } = req.params;
         const deleteUser = await knex('users').where({id:id}).delete()
         if (deleteUser > 0) {
+            const businessDelete = await knex('business').where({user_id:id}).delete()
             res.sendSuccess({}, "record deleted successfully");
         }
         else {

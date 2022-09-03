@@ -21,4 +21,7 @@ export class ApiService {
   _addUserBusinessDetails(req: any) {
     return this.http.post(`${this.apiUrl}/user/add/business`, req);
   }
+  _deleteRecord(req:any){
+    return this.http.delete(`${this.apiUrl}/user/delete/${req.id}`);
+  }
 }
