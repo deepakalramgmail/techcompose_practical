@@ -1,1 +1,71 @@
-<p>personal works!</p>
+<div class="row">
+    <div class="col-6">
+        <form [formGroup]="personalDetails" (submit)="onSubmit()">
+            <div class="form-group">
+                <label for="exampleInputEmail1" class="mt-2">Name</label>
+                <input type="text" class="form-control" formControlName="name">
+                <ng-container
+                    *ngIf="personalDetails.get('name').touched && personalDetails.get('name').hasError('required')">
+                    <span class="text-danger">Name is <b>required</b></span>
+                </ng-container>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1" class="mt-2">Email</label>
+                <input type="email" class="form-control" formControlName="email">
+                <ng-container
+                    *ngIf="personalDetails.get('email').touched && personalDetails.get('email').hasError('required')">
+                    <span class="text-danger">Email is <b>required</b></span>
+                </ng-container>
+                <ng-container
+                    *ngIf="personalDetails.get('email').touched && personalDetails.get('email').hasError('pattern')">
+                    <span class="text-danger">Email is <b>invalid</b></span>
+                </ng-container>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1" class="mt-2">Password</label>
+                <input type="password" class="form-control" formControlName="password">
+                <ng-container
+                    *ngIf="personalDetails.get('password').touched && personalDetails.get('password').hasError('required')">
+                    <span class="text-danger">Password is <b>required</b></span>
+                </ng-container>
+                <ng-container
+                    *ngIf="personalDetails.get('password').touched && personalDetails.get('password').errors?.['minlength']">
+                    <span class="text-danger">Password must be <b> minimum 6 character</b></span>
+                </ng-container>
+                <ng-container
+                    *ngIf="personalDetails.get('password').touched && personalDetails.get('password').errors?.['maxlength']">
+                    <span class="text-danger">Password must be <b> maximum 12 character</b></span>
+                </ng-container>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1" class="mt-2">Date of birth</label>
+                <input type="text" class="form-control" formControlName="dob">
+                <ng-container
+                    *ngIf="personalDetails.get('dob').touched && personalDetails.get('dob').hasError('required')">
+                    <span class="text-danger">Date Of Birth is <b>required</b></span>
+                </ng-container>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1" class="mt-2">Contact No</label>
+                <input type="number" class="form-control" formControlName="contactno">
+                <ng-container
+                    *ngIf="personalDetails.get('contactno').touched && personalDetails.get('contactno').hasError('required')">
+                    <span class="text-danger">Contact No is <b>required</b></span>
+                </ng-container>
+                <ng-container
+                    *ngIf="personalDetails.get('contactno').touched && personalDetails.get('contactno').hasError('pattern')">
+                    <span class="text-danger">Contact No is <b>invalid</b></span>
+                </ng-container>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1" class="mt-2">Address</label>
+                <textarea cols="30" rows="10" class="form-control" formControlName="address"></textarea>
+                <ng-container
+                    *ngIf="personalDetails.get('address').touched && personalDetails.get('address').hasError('required')">
+                    <span class="text-danger">Address is <b>required</b></span>
+                </ng-container>
+            </div>
+            <button type="submit" class="my-3 btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

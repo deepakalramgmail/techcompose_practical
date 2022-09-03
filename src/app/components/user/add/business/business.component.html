@@ -1,1 +1,48 @@
-<p>business works!</p>
+<div class="row">
+    <div class="col-6">
+        <form [formGroup]="businessDetails" (submit)="onSubmit()">
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="business_name" placeholder="Business Name">
+                <ng-container
+                    *ngIf="businessDetails.get('business_name').touched && businessDetails.get('business_name').hasError('required')">
+                    <span class="text-danger"> Business is <b>required</b></span>
+                </ng-container>
+            </div>
+
+            <div class="my-4" formArrayName="branches">
+                <ng-container *ngFor="let branch of branches.controls; let i = index">
+                    <div class="my-2 p-2 border rounded d-flex d-flex justify-content-between align-items-center"
+                        [formGroupName]="i">
+                        <h6>Branch {{i+1}}</h6>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" formControlName="area_name" placeholder="Area Name">
+                            <ng-container
+                                *ngIf="branches.controls[i].get('area_name')?.touched && branches.controls[i].get('area_name')?.hasError('required')">
+                                <span class="text-danger">Area name is <b>required</b></span>
+                            </ng-container>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="number" class="form-control" formControlName="contactno"
+                                placeholder="Contact no">
+                            <ng-container
+                                *ngIf="branches.controls[i].get('contactno')?.touched && branches.controls[i].get('contactno')?.hasError('required')">
+                                <span class="text-danger">Contact Name is <b>required</b></span>
+                            </ng-container>
+                            <ng-container
+                                *ngIf="branches.controls[i].get('contactno')?.touched && branches.controls[i].get('contactno')?.hasError('pattern')">
+                                <span class="text-danger">Contact number is <b>invalid</b></span>
+                            </ng-container>
+                        </div>
+
+                        <button type="button" class="btn btn-sm btn-danger" (click)="removeBrnach(i)">Delete</button>
+                    </div>
+                </ng-container>
+                <button type="button" class="btn btn-sm btn-primary" (click)="addBranch()">Add Branch</button>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
