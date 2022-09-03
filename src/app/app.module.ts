@@ -7,6 +7,7 @@ import { UserComponent } from './components/user/user.component';
 import { AddComponent } from './components/user/add/add.component';
 import { PersonalComponent } from './components/user/add/personal/personal.component';
 import { BusinessComponent } from './components/user/add/business/business.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { BusinessComponent } from './components/user/add/business/business.compo
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/_services/api.service';
 
 @Component({
   selector: 'app-user',
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
-  constructor() { }
+  public userList: any[] = []
+  constructor(private api: ApiService) { }
 
   ngOnInit(): void {
   }
 
+  getUserList() {
+    this.api._getUserList({}).subscribe(
+      (res: any) => {
+        if (res.status === 200 && res?.data.length > 0) {
+          this.userList = res.data
+        }
+        else {
+          this.userList = [];
+        }
+      },
+      (err) => {
+        console.error(err.message);
+      })
+  }
 }

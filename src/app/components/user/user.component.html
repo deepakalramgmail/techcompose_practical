@@ -1,1 +1,43 @@
-<p>user works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="py-5 d-flex justify-content-between">
+                <h2>Users</h2>
+                <button class="btn btn-secondary" routerLink="/user/add">Add User</button>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Date Of Birth</th>
+                    <th scope="col">Contact No</th>
+                    <th scope="col">Business Name</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngIf="userList.length > 0 else noUsers">
+                    <ng-container *ngFor="let user of userList">
+                        <tr>
+                            <td>{{user.name}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.dob}}</td>
+                            <td>{{user.contactno}}</td>
+                            <td>{{user.business_name}}</td>
+                            <td> <span>Edit</span> | <span>Delete</span> </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+                <ng-template #noUsers>
+                    <tr class="text-center">
+                        <td colspan="6"> No Data Available</td>
+                    </tr>
+                </ng-template>
+            </tbody>
+        </table>
+    </div>
+</div>
