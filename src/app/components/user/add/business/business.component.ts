@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiService } from 'src/app/_services/api.service';
 
 @Component({
@@ -11,9 +12,10 @@ export class BusinessComponent implements OnInit {
 
   businessDetails: any = {};
 
-  constructor(private _fb: FormBuilder, private api: ApiService) { }
+  constructor(private _fb: FormBuilder, private api: ApiService, private router:Router) { }
 
   ngOnInit(): void {
+    if(!localStorage.getItem('user_id')) { alert("you need to first fill perosnal details then business details"); this.router.navigate(['/user/add/personal']) }
     this.formInit()
   }
 
@@ -46,7 +48,12 @@ export class BusinessComponent implements OnInit {
       console.log("invalid form");
     }
     else {
-      this.api._addUserBusinessDetails({}).subscribe(
+      const req = {
+        name:this.businessDetails.value.business_name,
+        branches:JSON.stringify(this.businessDetails.value.branches),
+        user_id:localStorage.getItem('user_id'),
+      }
+      this.api._addUserBusinessDetails(req).subscribe(
         (res: any) => {
           if (res.status === 200) {
             this.businessDetails.reset();
